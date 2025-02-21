@@ -9,6 +9,9 @@ TRUNCATE TABLE TABLENAME; ------> TRUNCATE WILL DELETE ONLY DATA INSIDE THE TABL
 
 This command removes all rows from a table, but it does not remove the table structure. After truncating, the table is empty, and the operation is usually faster than a DELETE statement because it does not log individual row deletions.
 
+NOTE: WE CAN CHECK USING DESCRIBE COMMAND , 
+
+DESCRIBE TABLENAME;  ----> structure is available or not
 
 
 
