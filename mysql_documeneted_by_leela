@@ -1,0 +1,805 @@
+
+
+
+
+# MYSQL ALL QUERIES
+
+# we can use capital letters or small letters in queries.
+
+
+create database leelaram;  --> we can create database using this querie. ( leelaram is the name of the database)
+
+show databases; --> we can see all previously created  databases in mysql using this querie (or) it will list out the all databases.
+
+drop database fourthDATABASE; --> we can delete database using this querie
+
+create database if not exists test;  --->  if test database not available then only test database will creates.
+
+use test;  ---> changing one database to one another database , we can tables in particular database.
+
+select database();  ---> it will show the we are using which database n
+
+# CREATING TABLE , TABLE NAME table1 and created columns also with names
+
+create table table1(
+  id int primary key,
+  name varchar(50),
+  age int not null,
+  certifications varchar(50),
+  fplayer varchar(50),
+  fsports varchar(50),
+  marks int not null
+);
+
+
+# the below command will show the all available tables in database
+
+show tables;
+
+# it will show the all rows and columns in table1 table , if not inserted any rows then it will show empy set (means nothing)
+
+select * from table1;
+
+# INSERTING VALUES TO THE TABLE TABLE1
+
+insert into table1 values(1, "leelaram", 26, "awscertified", "kohli", "tennis & cricket", 78);
+
+insert into table1 values(2, "rahul", 28, "azurecertified", "dhoni", "tennis", 88);
+
+insert into table1 values(3, "bhanuteja", 27, "trafficcertified", "sachin", "football", 98);
+
+insert into table1 values(4, "praneeth", 25, "jenkinsccertified", "pandya", "baseball", 68);
+
+insert into table1 values(5, "harish", 28, "opsccertified", "bumrah", "ludo", 75);
+
+insert into table1 values(6, "akshay", 24, "azurecertifies", "rohit", "cricket", 79);
+
+
+
+# retrieving or listing all data inside the table
+
+
+mysql> select * from table1;
++----+-----------+-----+-------------------+---------+------------------+-------+
+| id | name      | age | certifications    | fplayer | fsports          | marks |
++----+-----------+-----+-------------------+---------+------------------+-------+
+|  1 | leelaram  |  26 | awscertified      | kohli   | tennis & cricket |    78 |
+|  2 | rahul     |  28 | azurecertified    | dhoni   | tennis           |    88 |
+|  3 | bhanuteja |  27 | trafficcertified  | sachin  | football         |    98 |
+|  4 | praneeth  |  25 | jenkinsccertified | pandya  | baseball         |    68 |
+|  5 | harish    |  28 | opsccertified     | bumrah  | ludo             |    75 |
+|  6 | akshay    |  24 | azurecertifies    | rohit   | cricket          |    79 |
++----+-----------+-----+-------------------+---------+------------------+-------+
+6 rows in set (0.00 sec)
+
+
+
+
+
+# IF WE NEED TO INSERT VALUES  ONLY IN PARTICULAR COLUMNS IN A TABLE THEN USE THE BELOW COMMAND
+
+INSERT INTO table1 (id, name, age, marks) VALUES (8, 'john', 30, 85);
+
+mysql> select * from table1;
++----+-----------+-----+-------------------+---------+------------------+-------+
+| id | name      | age | certifications    | fplayer | fsports          | marks |
++----+-----------+-----+-------------------+---------+------------------+-------+
+|  1 | leelaram  |  26 | awscertified      | kohli   | tennis & cricket |    78 |
+|  2 | rahul     |  28 | azurecertified    | dhoni   | tennis           |    88 |
+|  3 | bhanuteja |  27 | trafficcertified  | sachin  | football         |    98 |
+|  4 | praneeth  |  25 | jenkinsccertified | pandya  | baseball         |    68 |
+|  5 | harish    |  28 | opsccertified     | bumrah  | ludo             |    75 |
+|  6 | akshay    |  24 | azurecertifies    | rohit   | cricket          |    79 |
+|  8 | john      |  30 | NULL              | NULL    | NULL             |    85 |
++----+-----------+-----+-------------------+---------+------------------+-------+
+7 rows in set (0.00 sec)
+
+# THE BELOW COMMAND we can retrieve only name , marks columns data from table1 , based on requirement we will querie
+
+select name, marks from table1;
+
+
+DISTINCT
+------------
+
+# the below command will give the distinct or unique values from the table1 in marks column 
+select distinct marks from table1; 
+
+# = , != , <= ,  >= , < , > , the below command will show all rows   from table1  based on based on condition
+select * from table1 where marks = 85;
+
+# AND ( TO CHECK FOR BOTH CONDITIONS TO BE TRUE )
+
+select * from table1 where marks > 80 and fplayer = "sachin";
+
+# OR ( TO CHECK FOR ONE OF THE CONDITIONS TO BE TRUE)
+select * from table1 where marks > 80 or fplayer = "sachin";
+
+select * from table1 where marks between  80 and 90;
+
+select * from table1 where certifications in ("awscertified", "azurecertified");
+
+select * from table1 where certifications not in ("awscertified", "azurecertified");
+
+
+#it will returns the first 3 rows from a table
+select * from table1 limit 3;
+
+select * from table1 where marks >= 75 limit 3;
+
+
+ORDER BY
+-----------------
+
+# ORDER BY COMMAND OR CLAUSE IS RETURN ROWS EITHER ASSECENDING ORDER OR DESCENDING ORDER BASED ON COLUMN NAMES
+select * from table1 order by name asc;
+
+select * from table1 order by name desc;
+
+
+
+# ADDING NEW COLUMN IN A TABLE
+ALTER TABLE table1 ADD COLUMN testcolumn varchar(50);
+
+
+update table1 set testcolumn = "newvarchar";  ---> THIS WILL UPDATE ALL TESTCOLUMN DATA TO NEWVARCHAR IN ALL ROWS
+
+update table1 set testcolumn = "newvarchar"; ----> THIS WILL UPDATE DATA ONLY SPECIFIC ROWS BASED ON CONDITION
+
+
+ALTER TABLE table1 CHANGE testcolumn workingcolumn varchar(100); ---> FOR CHANGING COLUMN NAME 
+
+ALTER TABLE table1 CHANGE COLUMN marks EXTRAMARKS INT;
+
+NOTE: WE CAN CHANGE THE COLUMN NAME NOT DATA TYPE , IF PREVIOUS DATA TYPE STRING YOU ARE TRYING TO CHANGE INTEGER IT WILL THROUGH ERROR
+
+
+#FOR GETTING STRUCTURE OF THE TABLE
+SHOW COLUMNS FROM table1; OR DESCRIBE table1;
+
+
+DESCRIBE table1;
++----------------+--------------+------+-----+---------+-------+
+| Field          | Type         | Null | Key | Default | Extra |
++----------------+--------------+------+-----+---------+-------+
+| id             | int(11)      | NO   | PRI | NULL    |       |
+| name           | varchar(50)  | YES  |     | NULL    |       |
+| age            | int(11)      | NO   |     | NULL    |       |
+| certifications | varchar(50)  | YES  |     | NULL    |       |
+| fplayer        | varchar(50)  | YES  |     | NULL    |       |
+| fsports        | varchar(50)  | YES  |     | NULL    |       |
+| marks          | int(11)      | NO   |     | NULL    |       |
+| workingcolumn  | varchar(100) | YES  |     | NULL    |       |
++----------------+--------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+
+
+# DELETING SPECIFIC COLUMN IN TABLE
+ALTER TABLE table1 DROP COLUMN workingcolumn;
+
+DROP TABLE TABLE; IT WILL DELETES THE ENTIRE TABLE
+
+DELETE FROM TABLE1; ---> DELETING ALL ROWS IN A TABLE
+
+DELETE FROM table1 WHERE NAME = "RAMBO"; --> it will deletes specific row only
+
+
+
+AGGREGATE FUNCTIONS
+#----------------------
+
+# COUNT() , MAX(), MIN(), SUM(), AVG()
+
+select max(marks) from table1;
+
+select count(marks) from table1;
+
+select sum(marks) from table1;
+
+.
+.
+etc
+#-----------------------------
+
+
+
+GROUP BY
+-------------
+#GROUP BY WILL RETURN ONLY UNIQUE VALUES IN COLUMN , he output shows the unique marks values, including NULL, that are present in the table.
+
+# GROUP BY CLAUSE IS USED TO GROUP ROWS BY ONE OR MORE COLUMNS
+# NOTE: THE GROUP BY CLAUSE IS USED IN CONJUNCTION WITH AGGREGATE FUNCTIONS SUCH AS MIN(), MAX(),SUM(), AVG(), COUNT(), ETC 
+
+select marks from table1 group by marks;
+
+select marks from table1; ----> this will return all values including duplicates.
+
+select EXTRAMARKS, max(age) from table1 group by EXTRAMARKS, age;
++------------+----------+
+| EXTRAMARKS | max(age) |
++------------+----------+
+|         68 |       25 |
+|         75 |       28 |
+|         78 |       26 |
+|         79 |       24 |
+|         85 |       30 |
+|         88 |       28 |
+|         98 |       27 |
++------------+----------+
+
+
+
+ HAVING
+----------
+# HAVING CLAUSE WAS ADDED TO SQL BECAUSE WHERE KEYWORD CANNOT BE USED WITH AGGREGATE FUNCTIONS.
+
+#WE CAN USE THE GROUP BY CLAUSE WITH THE HAVING CLAUSE TO FILTER THE RESULT SET BASED ON THE AGGREGATE FUNCTIONS
+
+
+select EXTRAMARKS, max(age) from table1 group by EXTRAMARKS, age having max(age) > 24;
++------------+----------+
+| EXTRAMARKS | max(age) |
++------------+----------+
+|         68 |       25 |
+|         75 |       28 |
+|         78 |       26 |
+|         85 |       30 |
+|         88 |       28 |
+|         98 |       27 |
++------------+----------+
+6 rows in set (0.00 sec)
+
+mysql> select EXTRAMARKS, max(age) from table1 group by EXTRAMARKS, age having max(age) > 28;
++------------+----------+
+| EXTRAMARKS | max(age) |
++------------+----------+
+|         85 |       30 |
++------------+----------+
+1 row in set (0.00 sec)
+
+ 
+
+
+PRIMARY KEY
+-------------
+# A TABLE CAN HAVE ONLY PRIMARY KEY
+
+# A PRIMARY KEY MUST CONTAIN UNIQUE VALUES , AND CANNOT CONTAIN NULL VALUES.
+
+# THE PRIMARY KEY CONSTRAINT UNIQUELY IDENTIFIES EACH RECORD IN A TABLE
+
+
+CREATE TABLE pktest (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(60),
+  goal VARCHAR(52)
+);
+
+
+OR
+
+CREATE TABLE pktest (
+    id INT AUTO_INCREMENT,
+    name VARCHAR(60),
+    goal VARCHAR(52),
+    PRIMARY KEY (id)
+);
+
+
+NOTE: IF WE ARE USING AUTO INCREMENT , THEN NO NEED TO INSERT  ID VALUE , DEFAULTLY IT WILL TAKE 1,2,3 ETC 
+
+USE LIKE THIS QUIREY------> INSERT INTO pktest1 (name, goal) VALUES ('John Doe', 'Learn MySQL');
+
+
+
+FOREIGN KEY
+------------------
+A foreign key is a column (or group of columns) that references the primary key (or unique key) of another table.
+
+
+I USED THE BELOW TABLES FOR FOREIGN KEY
+
+mysql> select * from student1_table1;
++----+----------+-----------------+
+| id | name     | gmail           |
++----+----------+-----------------+
+|  1 | student1 | mail1@gmail.com |
+|  2 | student2 | mail2@gmail.com |
+|  3 | student3 | mail3@gmail.com |
++----+----------+-----------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from certificate_table;
++----+------+------+
+| id | year | sem  |
++----+------+------+
+|  1 |    1 |    1 |
+|  2 |    1 |    2 |
+|  3 |    2 |    1 |
+|  4 |    2 |    2 |
+|  5 |    3 |    1 |
+|  6 |    3 |    2 |
+|  7 |    4 |    1 |
+|  8 |    4 |    2 |
++----+------+------+
+8 rows in set (0.00 sec)
+
+
+mysql> CREATE TABLE certificate_log (
+    ->   student_id INT,
+    ->   certificate_id int,
+    ->   recieved_date date,
+    ->   foreign key(student_id) references student1_table1(id),  ## we creating foreign key for student_id column in certificate log , it is references to student1_table1(id) , we can only insert values in student_id column , what are the values available in student1_table1(id) , if we are trying to insert to any another values it through error.
+
+    ->   foreign key(certificate_id) references certificate_table(id)
+    -> );
+
+
+INSERT INTO certificate_log VALUES(2, 2, "2020-10-28");
+
+JOINS
+--------------------------------------------------------------
+
+JOINS ARE USED TO RETRIEVE DATA FROM TWO OR MORE RELATED TABLES. IN GENERAL TABLES ARE RELATED TO EACH USING FOREIGN KEY CONSTRAINTS.
+
+In MySQL, joins are used to combine rows from two or more tables based on a COMMON COLUMN NAME OR related column between them.
+
+
+NOTE: I CREATED AND USED FOR JOINS TESTING , REFER THESE TABLES
+---------------------
+
+
+mysql> show tables;
++-----------------+
+| Tables_in_joins |
++-----------------+
+| marks_table     |
+| ncc_nss_table   |
+| sports_table    |
+| student_table   |
++-----------------+
+4 rows in set (0.00 sec)
+
+
+select * from marks_table;
++----+-------+------+
+| id | marks | rank |
++----+-------+------+
+|  1 |    89 |    6 |
+|  2 |    95 |    3 |
+|  3 |    76 |    9 |
+|  4 |    80 |    8 |
+|  5 |    69 |   10 |
+|  6 |    92 |    4 |
+|  7 |    90 |    5 |
+|  8 |    82 |    7 |
+|  9 |    97 |    2 |
+| 10 |    98 |    1 |
++----+-------+------+
+10 rows in set (0.00 sec)
+
+select * from student_table;
++----+-----------+------+
+| id | name      | age  |
++----+-----------+------+
+|  1 | student1  |   18 |
+|  2 | student2  |   17 |
+|  3 | student3  |   18 |
+|  4 | student4  |   17 |
+|  5 | student5  |   19 |
+|  6 | student6  |   18 |
+|  7 | student7  |   17 |
+|  8 | student8  |   18 |
+|  9 | student9  |   18 |
+| 10 | student10 |   17 |
++----+-----------+------+
+10 rows in set (0.00 sec)
+
+
+select * from sports_table;
++----+------------+
+| id | sports     |
++----+------------+
+|  1 | cricket    |
+|  2 | vollyball  |
+|  3 | basketball |
+|  4 | cricket    |
+|  5 | vollyball  |
+|  6 | basketball |
++----+------------+
+6 rows in set (0.00 sec)
+
+select * from ncc_nss_table;
++----+---------+
+| id | ncc_nss |
++----+---------+
+|  1 | ncc     |
+|  2 | nss     |
+|  3 | ncc     |
+|  4 | nss     |
+|  5 | nss     |
+|  6 | ncc     |
++----+---------+
+6 rows in set (0.00 sec)
+
+
+
+
+INNER JOIN:
+--------------------
+
+An inner join  combines rows from two or more tables based on a related column between them.
+The inner join returns a result set that contains only the rows that have matching values in both tables.
+
+
+mysql> SELECT *
+    -> FROM student_table AS t1
+    -> INNER JOIN marks_table AS t2 ON t1.id = t2.id;
++----+-----------+------+----+-------+------+
+| id | name      | age  | id | marks | rank |
++----+-----------+------+----+-------+------+
+|  1 | student1  |   18 |  1 |    89 |    6 |
+|  2 | student2  |   17 |  2 |    95 |    3 |
+|  3 | student3  |   18 |  3 |    76 |    9 |
+|  4 | student4  |   17 |  4 |    80 |    8 |
+|  5 | student5  |   19 |  5 |    69 |   10 |
+|  6 | student6  |   18 |  6 |    92 |    4 |
+|  7 | student7  |   17 |  7 |    90 |    5 |
+|  8 | student8  |   18 |  8 |    82 |    7 |
+|  9 | student9  |   18 |  9 |    97 |    2 |
+| 10 | student10 |   17 | 10 |    98 |    1 |
++----+-----------+------+----+-------+------+
+10 rows in set (0.00 sec)
+
+
+
+mysql> SELECT *
+    ->  FROM ncc_nss_table AS t1
+    ->  INNER JOIN student_table AS t2 ON t1.id = t2.id;
++----+---------+----+----------+------+
+| id | ncc_nss | id | name     | age  |
++----+---------+----+----------+------+
+|  1 | ncc     |  1 | student1 |   18 |
+|  2 | nss     |  2 | student2 |   17 |
+|  3 | ncc     |  3 | student3 |   18 |
+|  4 | nss     |  4 | student4 |   17 |
+|  5 | nss     |  5 | student5 |   19 |
+|  6 | ncc     |  6 | student6 |   18 |
++----+---------+----+----------+------+
+6 rows in set (0.00 sec)
+
+the above combined table only 6 rows , but student_table 10 rows , but in ncc_nss_table only ids upto 6 only thats why it will return only 6 rows in combined table
+
+
+
+LEFT JOIN OR LEFT OUTER JOIN:
+-------------------------------
+
+A left join combines rows from two or more tables based on a related column between them. The left join returns all rows from the left table and the matching rows from the right table.
+
+If there is no matching row in the right table, the result will include null values for the columns from the right table.
+
+
+mysql> select * from student_table as t1
+    -> left join ncc_nss_table as t2
+    -> on t1.id = t2.id;
++----+-----------+------+------+---------+
+| id | name      | age  | id   | ncc_nss |
++----+-----------+------+------+---------+
+|  1 | student1  |   18 |    1 | ncc     |
+|  2 | student2  |   17 |    2 | nss     |
+|  3 | student3  |   18 |    3 | ncc     |
+|  4 | student4  |   17 |    4 | nss     |
+|  5 | student5  |   19 |    5 | nss     |
+|  6 | student6  |   18 |    6 | ncc     |
+|  7 | student7  |   17 | NULL | NULL    |
+|  8 | student8  |   18 | NULL | NULL    |
+|  9 | student9  |   18 | NULL | NULL    |
+| 10 | student10 |   17 | NULL | NULL    |
++----+-----------+------+------+---------+
+10 rows in set (0.00 sec)
+
+
+
+RIGHT JOIN OR RIGHT OUTER JOIN
+---------------------------------------
+A left join combines rows from two or more tables based on a related column between them.
+The right join returns all rows from the right table and the matching rows from the left table.
+
+If there is no matching row in the LEFT table, the result will include null values for the columns from the left table.
+
+mysql> select * from sports_table as t1
+    -> right join student_table as t2
+    -> on t1.id = t2.id;
++------+------------+----+-----------+------+
+| id   | sports     | id | name      | age  |
++------+------------+----+-----------+------+
+|    1 | cricket    |  1 | student1  |   18 |
+|    2 | vollyball  |  2 | student2  |   17 |
+|    3 | basketball |  3 | student3  |   18 |
+|    4 | cricket    |  4 | student4  |   17 |
+|    5 | vollyball  |  5 | student5  |   19 |
+|    6 | basketball |  6 | student6  |   18 |
+| NULL | NULL       |  7 | student7  |   17 |
+| NULL | NULL       |  8 | student8  |   18 |
+| NULL | NULL       |  9 | student9  |   18 |
+| NULL | NULL       | 10 | student10 |   17 |
++------+------------+----+-----------+------+
+10 rows in set (0.00 sec)
+
+
+
+FULL OUTER JOIN  (MYSQL NOT SUPPORTING FULL OUTER JOIN)
+----------------------
+
+A full outer join that combines rows from two or more tables based on a related column between them. 
+
+It returns all rows from both tables, including matched and unmatched rows. 
+This means that all rows from the left table and all rows from the right table are included in the result set, with null values for the columns from the other table where there is no match.
+
+
+SELF JOIN
+----------------------------------------
+
+SELF JOIN IS A JOIN , WHERE A TABLE IS JOINED WITH ITSELF.
+
+IT IS USED WHEN YOU WANT TO COMBINE ROWS FROM THE SAME TABLE BASED ON RELATED COLUMN
+
+
+
+
+
+STORED PROCEDURE
+-----------------------------
+we can store set of sql statements in a procedure, we can call whenever we need , stored procedures are used for resuability
+
+A stored procedure is a precompiled set of SQL statements that perform a specific task and are stored in a database for reuse.
+It can accept input parameters, return output parameters, and modify variables. 
+Stored procedures offer benefits such as reusability, improved security, reduced network traffic, and better performance
+
+
+DELIMITER //
+
+CREATE PROCEDURE first_procedure()
+BEGIN
+    SELECT id, age 
+    FROM student_table
+    WHERE id > 5 AND age > 17;
+END //
+
+DELIMITER ;
+
+mysql> call first_procedure();
++----+------+
+| id | age  |
++----+------+
+|  6 |   18 |
+|  8 |   18 |
+|  9 |   18 |
++----+------+
+3 rows in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+
+PASSING PARAMERS TO STORED PROCEDURE
+------------------------------------------------
+mysql> DELIMITER //
+mysql> 
+mysql> CREATE PROCEDURE parameter_procedure( 
+    ->   p_id int,
+    ->   p_age int
+    -> 
+    -> )
+    -> BEGIN
+    ->     SELECT id, age
+    ->     FROM student_table
+    ->     WHERE id > p_id AND age > p_age;
+    -> END //
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> 
+mysql> DELIMITER ;
+
+mysql> call parameter_procedure(3, 17);
++----+------+
+| id | age  |
++----+------+
+|  5 |   19 |
+|  6 |   18 |
+|  8 |   18 |
+|  9 |   18 |
++----+------+
+4 rows in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> 
+
+
+# it will show the available procedures
+SHOW PROCEDURE STATUS WHERE Db = 'joins';
+
+# it will delete the procedure
+
+DROP PROCEDURE my_procedure;
+
+
+
+
+TRIGGERS
+------------------------------------------
+
+It is invoked automatically in response to an event. Each trigger is associated with a table, which is activated on any DML statement such as INSERT, UPDATE, or DELETE.
+
+NOTE: IF ANY CHANGES IN TABLE THE PREVIOUS DATA IS STORED IN ANOTHER TABLES ( NOT ALL DATA , ONLY CHANGED CONTENT ROWS)
+
+Generally, triggers are of two types according to the SQL standard: row-level triggers and statement-level triggers.
+
+I USED BELOW TABLES FOR REFERENCES
+
+mysql> select * from student_table;
++----+-----------+------+
+| id | name      | age  |
++----+-----------+------+
+|  1 | student1  |   18 |
+|  2 | student2  |   17 |
+|  3 | student3  |   18 |
+|  4 | student4  |   17 |
+|  5 | student5  |   19 |
+|  6 | student6  |   18 |
+|  7 | student7  |   17 |
+|  8 | student8  |   18 |
+|  9 | student9  |   18 |
+| 10 | student10 |   17 |
++----+-----------+------+
+10 rows in set (0.00 sec)
+
+mysql> create table employ_audit(
+    ->   id int not null auto_increment,
+    ->   enum int not null,
+    ->   empname varchar(50) not null,
+    ->   changedon datetime default null,
+    ->   action varchar(50) default null,
+    ->   primary key(id)
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+
+mysql> DELIMITER $$
+mysql> 
+mysql> CREATE TRIGGER BEFORE_UPDATE_student_table
+    -> BEFORE UPDATE ON student_table
+    -> FOR EACH ROW
+    -> BEGIN
+    ->     INSERT INTO employ_audit
+    ->     SET action = 'update',
+    ->         `enum` = OLD.id,
+    ->         empname = OLD.name,
+    ->         changedon = NOW();
+    -> END$$
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> 
+mysql> DELIMITER ;
+mysql> 
+
+mysql> update student_table set name = "leelaram" where age = 18;
+Query OK, 5 rows affected (0.00 sec)
+Rows matched: 5  Changed: 5  Warnings: 0
+
+mysql> select * from employ_audit;
++----+------+----------+---------------------+--------+
+| id | enum | empname  | changedon           | action |
++----+------+----------+---------------------+--------+
+|  1 |    1 | student1 | 2024-07-10 10:48:06 | update |
+|  2 |    3 | student3 | 2024-07-10 10:48:06 | update |
+|  3 |    6 | student6 | 2024-07-10 10:48:06 | update |
+|  4 |    8 | student8 | 2024-07-10 10:48:06 | update |
+|  5 |    9 | student9 | 2024-07-10 10:48:06 | update |
++----+------+----------+---------------------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select * from student_table;
++----+-----------+------+
+| id | name      | age  |
++----+-----------+------+
+|  1 | leelaram  |   18 |
+|  2 | student2  |   17 |
+|  3 | leelaram  |   18 |
+|  4 | student4  |   17 |
+|  5 | student5  |   19 |
+|  6 | leelaram  |   18 |
+|  7 | student7  |   17 |
+|  8 | leelaram  |   18 |
+|  9 | leelaram  |   18 |
+| 10 | student10 |   17 |
++----+-----------+------+
+10 rows in set (0.00 sec)
+
+
+
+VIEWS
+-------------------------------------
+IT IS A VIRTUAL TABLE , IT IS USED TO MAKE SECURE ACCESS TO DATA, SIMPLE WAY OF ACCESSING THE DATA
+
+A view is a virtual table based on the result set of a SELECT query. It does not store data physically but provides a way to look at data from one or more tables in a customized manner.
+
+mysql> select * from student_table;
++----+-----------+------+
+| id | name      | age  |
++----+-----------+------+
+|  1 | leelaram  |   18 |
+|  2 | student2  |   17 |
+|  3 | leelaram  |   18 |
+|  4 | student4  |   17 |
+|  5 | student5  |   19 |
+|  6 | leelaram  |   18 |
+|  7 | student7  |   17 |
+|  8 | leelaram  |   18 |
+|  9 | leelaram  |   18 |
+| 10 | student10 |   17 |
++----+-----------+------+
+10 rows in set (0.00 sec)
+
+mysql> create view first_view as
+    -> select id,name from student_table;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from first_view;
++----+-----------+
+| id | name      |
++----+-----------+
+|  1 | leelaram  |
+|  2 | student2  |
+|  3 | leelaram  |
+|  4 | student4  |
+|  5 | student5  |
+|  6 | leelaram  |
+|  7 | student7  |
+|  8 | leelaram  |
+|  9 | leelaram  |
+| 10 | student10 |
++----+-----------+
+10 rows in set (0.00 sec)
+
+SHOW FULL TABLES WHERE TABLE_TYPE = 'VIEW';
+
+
+
+INDEXES
+--------------------------------------------------------
+
+INDEXES improves the speed of data retrieval operations on a database table. 
+Indexes are used to quickly locate and access the data in a database table without having to search every row in the table every time a database table is accessed.
+
+
+
+#the below queiry will check row by row it will give output slowly
+select * from student
+where age > 17; 
+
+
+mysql> create index first_index on
+    -> student_table (age asc);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+
+AFTER CREATION OF INDEX THE WE WILL GET OUTPUT FAST
+
+mysql> select * from student_table  where age > 17;
++----+----------+------+
+| id | name     | age  |
++----+----------+------+
+|  1 | leelaram |   18 |
+|  3 | leelaram |   18 |
+|  5 | student5 |   19 |
+|  6 | leelaram |   18 |
+|  8 | leelaram |   18 |
+|  9 | leelaram |   18 |
++----+----------+------+
+6 rows in set (0.00 sec)
+
+
