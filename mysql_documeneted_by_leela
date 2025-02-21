@@ -1,5 +1,15 @@
 
 
+DIFFERENCE BETWEEN DROP AND TRUNCATE
+--------------------------------------------
+
+DROP TABLE TABLENAME;   -----> IT WILL COMPLETELY DELETES THE TABLE COMPLETETLY
+
+TRUNCATE TABLE TABLENAME; ------> TRUNCATE WILL DELETE ONLY DATA INSIDE THE TABLE BUT STRUCTURE IS AVAILABLE.
+
+This command removes all rows from a table, but it does not remove the table structure. After truncating, the table is empty, and the operation is usually faster than a DELETE statement because it does not log individual row deletions.
+
+
 
 
 # MYSQL ALL QUERIES
